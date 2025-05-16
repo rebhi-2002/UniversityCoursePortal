@@ -53,13 +53,12 @@ export default function AuthPage() {
   const { user, loginMutation, registerMutation, isLoading } = useAuth();
   const [, setLocation] = useLocation();
 
-  // Redirect if already logged in
-  if (user) {
-    // Using setLocation instead of Redirect to avoid hook order issues
-    React.useEffect(() => {
+  // Use an effect for redirection to avoid hook order issues
+  React.useEffect(() => {
+    if (user) {
       setLocation("/");
-    }, [setLocation]);
-  }
+    }
+  }, [user, setLocation]);
 
   // Initialize login form
   const loginForm = useForm<LoginFormValues>({
