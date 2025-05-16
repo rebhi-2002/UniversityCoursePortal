@@ -43,7 +43,7 @@ export function CourseFilter({ onApplyFilters, defaultValues = {} }: CourseFilte
   });
 
   // Fetch departments for filter dropdown
-  const { data: departments } = useQuery({
+  const { data: departments = [] } = useQuery<any[]>({
     queryKey: ["/api/departments"],
   });
 
@@ -89,8 +89,8 @@ export function CourseFilter({ onApplyFilters, defaultValues = {} }: CourseFilte
                 <SelectValue placeholder="All Departments" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Departments</SelectItem>
-                {departments && departments.map((dept: any) => (
+                <SelectItem value="all">All Departments</SelectItem>
+                {departments && Array.isArray(departments) && departments.map((dept: any) => (
                   <SelectItem key={dept.id} value={dept.id.toString()}>
                     {dept.code} - {dept.name}
                   </SelectItem>
@@ -109,7 +109,7 @@ export function CourseFilter({ onApplyFilters, defaultValues = {} }: CourseFilte
                 <SelectValue placeholder="All Levels" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Levels</SelectItem>
+                <SelectItem value="all">All Levels</SelectItem>
                 <SelectItem value="100">100 Level (Intro)</SelectItem>
                 <SelectItem value="200">200 Level</SelectItem>
                 <SelectItem value="300">300 Level</SelectItem>
@@ -129,7 +129,7 @@ export function CourseFilter({ onApplyFilters, defaultValues = {} }: CourseFilte
                 <SelectValue placeholder="Any Credits" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any Credits</SelectItem>
+                <SelectItem value="all">Any Credits</SelectItem>
                 <SelectItem value="1">1 Credit</SelectItem>
                 <SelectItem value="2">2 Credits</SelectItem>
                 <SelectItem value="3">3 Credits</SelectItem>
@@ -149,7 +149,7 @@ export function CourseFilter({ onApplyFilters, defaultValues = {} }: CourseFilte
                 <SelectValue placeholder="All Modes" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Modes</SelectItem>
+                <SelectItem value="all">All Modes</SelectItem>
                 <SelectItem value="in-person">In-Person</SelectItem>
                 <SelectItem value="online">Online</SelectItem>
                 <SelectItem value="hybrid">Hybrid</SelectItem>
