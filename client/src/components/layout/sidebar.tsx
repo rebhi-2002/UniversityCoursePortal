@@ -42,9 +42,9 @@ const SidebarItem = ({ icon, label, href, count, isActive }: SidebarItemProps) =
   return (
     <li>
       <Link href={href}>
-        <a
+        <div
           className={cn(
-            "flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-slate-100 dark:hover:bg-slate-800",
+            "flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer",
             isActive
               ? "bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-100"
               : "text-slate-700 dark:text-slate-200"
@@ -57,7 +57,7 @@ const SidebarItem = ({ icon, label, href, count, isActive }: SidebarItemProps) =
               {count}
             </span>
           )}
-        </a>
+        </div>
       </Link>
     </li>
   );

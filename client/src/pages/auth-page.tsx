@@ -51,11 +51,14 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState<string>("login");
   const { user, loginMutation, registerMutation, isLoading } = useAuth();
-  const [location] = useLocation();
+  const [, setLocation] = useLocation();
 
   // Redirect if already logged in
   if (user) {
-    return <Redirect to="/" />;
+    // Using setLocation instead of Redirect to avoid hook order issues
+    React.useEffect(() => {
+      setLocation("/");
+    }, [setLocation]);
   }
 
   // Initialize login form
