@@ -32,6 +32,65 @@ function hasRole(role: string | string[]) {
 export async function registerRoutes(app: Express): Promise<Server> {
   // Set up authentication routes
   setupAuth(app);
+  
+  // Setup test accounts
+  app.get("/api/setup-test-accounts", async (req, res) => {
+    try {
+      // Create student account if it doesn't exist
+      const existingStudent = await storage.getUserByUsername("student");
+      if (!existingStudent) {
+        const studentUser = await storage.createUser({
+          username: "student",
+          email: "student@university.edu",
+          password: "password123", // In a real app, this would be hashed, but it's handled in auth.ts
+          firstName: "Sample",
+          lastName: "Student",
+          role: "student"
+        });
+        console.log("Created student account:", studentUser.username);
+      }
+      
+      // Create faculty account if it doesn't exist
+      const existingFaculty = await storage.getUserByUsername("faculty");
+      if (!existingFaculty) {
+        const facultyUser = await storage.createUser({
+          username: "faculty",
+          email: "faculty@university.edu",
+          password: "password123",
+          firstName: "Sample",
+          lastName: "Faculty",
+          role: "faculty"
+        });
+        console.log("Created faculty account:", facultyUser.username);
+      }
+      
+      // Create admin account if it doesn't exist
+      const existingAdmin = await storage.getUserByUsername("admin");
+      if (!existingAdmin) {
+        const adminUser = await storage.createUser({
+          username: "admin",
+          email: "admin@university.edu",
+          password: "password123",
+          firstName: "Sample",
+          lastName: "Admin",
+          role: "admin"
+        });
+        console.log("Created admin account:", adminUser.username);
+      }
+      
+      res.json({
+        message: "Test accounts created successfully",
+        accounts: [
+          { role: "student", username: "student", password: "password123" },
+          { role: "faculty", username: "faculty", password: "password123" },
+          { role: "admin", username: "admin", password: "password123" }
+        ]
+      });
+    } catch (error) {
+      console.error("Error creating test accounts:", error);
+      res.status(500).json({ message: "Failed to create test accounts" });
+    }
+  });
 
   // User routes
   app.get("/api/users", hasRole("admin"), async (req, res) => {

@@ -113,6 +113,32 @@ export default function AuthPage() {
                 : "Register to start using UniCourse"
               }
             </CardDescription>
+            <div className="mt-3 text-center text-sm text-slate-500">
+              <div className="mb-2 font-medium">Quick Test Accounts:</div>
+              <div className="grid grid-cols-3 gap-2">
+                <button 
+                  type="button"
+                  onClick={() => loginMutation.mutate({ username: "student", password: "password123" })}
+                  className="text-xs py-1 px-2 border rounded hover:bg-slate-50 text-primary-600"
+                >
+                  Student
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => loginMutation.mutate({ username: "faculty", password: "password123" })}
+                  className="text-xs py-1 px-2 border rounded hover:bg-slate-50 text-violet-600"
+                >
+                  Faculty
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => loginMutation.mutate({ username: "admin", password: "password123" })}
+                  className="text-xs py-1 px-2 border rounded hover:bg-slate-50 text-amber-600"
+                >
+                  Admin
+                </button>
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab}>
