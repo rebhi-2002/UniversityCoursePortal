@@ -117,16 +117,18 @@ export function StudentDashboard() {
       </div>
       
       {/* Registration Alert */}
-      <Alert variant="warning" className="mt-6">
+      <Alert className="mt-6 border-amber-300 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Registration Alert</AlertTitle>
         <AlertDescription>
           The Fall 2023 course registration period ends in 5 days (September 15, 2023). Complete your registration before the deadline.
-          <Link href="/registration">
-            <a className="inline-block mt-2 font-medium underline hover:text-amber-900">
-              Go to Registration
-            </a>
-          </Link>
+          <div className="mt-2">
+            <Link href="/registration">
+              <Button variant="outline" size="sm" className="text-amber-700 border-amber-300 hover:bg-amber-100 dark:text-amber-200 dark:border-amber-800 dark:hover:bg-amber-900">
+                Go to Registration
+              </Button>
+            </Link>
+          </div>
         </AlertDescription>
       </Alert>
       
