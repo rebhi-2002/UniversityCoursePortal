@@ -36,7 +36,73 @@ app.use((req, res, next) => {
   next();
 });
 
+// Function to create test users on startup
+import { storage } from "./storage";
+import { scrypt, randomBytes } from "crypto";
+import { promisify } from "util";
+
+const scryptAsync = promisify(scrypt);
+
+async function hashPassword(password: string) {
+  const salt = randomBytes(16).toString("hex");
+  const buf = (await scryptAsync(password, salt, 64)) as Buffer;
+  return `${buf.toString("hex")}.${salt}`;
+}
+
+async function createTestUsers() {
+  try {
+    // Create student account if it doesn't exist
+    const existingStudent = await storage.getUserByUsername("student");
+    if (!existingStudent) {
+      const studentUser = await storage.createUser({
+        username: "student",
+        email: "student@university.edu",
+        password: await hashPassword("password123"),
+        firstName: "Sample",
+        lastName: "Student",
+        role: "student"
+      });
+      console.log("Created student account:", studentUser.username);
+    }
+    
+    // Create faculty account if it doesn't exist
+    const existingFaculty = await storage.getUserByUsername("faculty");
+    if (!existingFaculty) {
+      const facultyUser = await storage.createUser({
+        username: "faculty",
+        email: "faculty@university.edu",
+        password: await hashPassword("password123"),
+        firstName: "Sample",
+        lastName: "Faculty",
+        role: "faculty"
+      });
+      console.log("Created faculty account:", facultyUser.username);
+    }
+    
+    // Create admin account if it doesn't exist
+    const existingAdmin = await storage.getUserByUsername("admin");
+    if (!existingAdmin) {
+      const adminUser = await storage.createUser({
+        username: "admin",
+        email: "admin@university.edu",
+        password: await hashPassword("password123"),
+        firstName: "Sample",
+        lastName: "Admin",
+        role: "admin"
+      });
+      console.log("Created admin account:", adminUser.username);
+    }
+    
+    console.log("Test users setup complete!");
+  } catch (error) {
+    console.error("Error creating test users:", error);
+  }
+}
+
 (async () => {
+  // Create test users first
+  await createTestUsers();
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
