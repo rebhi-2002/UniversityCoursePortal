@@ -17,6 +17,10 @@ import CalendarPage from "@/pages/calendar-page";
 import NotificationsPage from "@/pages/notifications-page";
 import HelpCenterPage from "@/pages/help-center-page";
 import SettingsPage from "@/pages/settings-page";
+import MyCoursesPage from "@/pages/my-courses-page";
+import GradebookPage from "@/pages/gradebook-page";
+import OfficeHoursPage from "@/pages/office-hours-page";
+import MyProfilePage from "@/pages/my-profile-page";
 import { AuthProvider } from "@/hooks/use-auth";
 
 function Router() {
@@ -35,9 +39,9 @@ function Router() {
       <ProtectedRoute path="/notifications" component={NotificationsPage} />
       
       {/* Faculty Routes */}
-      <ProtectedRoute path="/my-courses" component={() => <ComingSoonPage title="My Courses" />} />
-      <ProtectedRoute path="/gradebook" component={() => <ComingSoonPage title="Gradebook" />} />
-      <ProtectedRoute path="/office-hours" component={() => <ComingSoonPage title="Office Hours" />} />
+      <ProtectedRoute path="/my-courses" component={MyCoursesPage} />
+      <ProtectedRoute path="/gradebook" component={GradebookPage} />
+      <ProtectedRoute path="/office-hours" component={OfficeHoursPage} />
       
       {/* Admin Routes */}
       <ProtectedRoute path="/user-management" component={() => <ComingSoonPage title="User Management" />} />
@@ -47,6 +51,7 @@ function Router() {
       {/* General Routes */}
       <ProtectedRoute path="/help" component={HelpCenterPage} />
       <ProtectedRoute path="/settings" component={SettingsPage} />
+      <ProtectedRoute path="/profile" component={MyProfilePage} />
       
       {/* Auth and Not Found Routes */}
       <Route path="/auth" component={AuthPage} />
