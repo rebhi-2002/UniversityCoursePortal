@@ -11,6 +11,12 @@ import CourseRegistration from "@/pages/course-registration";
 import CourseCatalog from "@/pages/course-catalog";
 import MoodlePage from "@/pages/moodle-page";
 import ComingSoonPage from "@/pages/coming-soon-page";
+import GradesPage from "@/pages/grades-page";
+import TranscriptPage from "@/pages/transcript-page";
+import CalendarPage from "@/pages/calendar-page";
+import NotificationsPage from "@/pages/notifications-page";
+import HelpCenterPage from "@/pages/help-center-page";
+import SettingsPage from "@/pages/settings-page";
 import { AuthProvider } from "@/hooks/use-auth";
 
 function Router() {
@@ -23,10 +29,10 @@ function Router() {
       <ProtectedRoute path="/moodle" component={MoodlePage} />
       
       {/* Student Routes */}
-      <ProtectedRoute path="/grades" component={() => <ComingSoonPage title="Grades" />} />
-      <ProtectedRoute path="/transcript" component={() => <ComingSoonPage title="Transcript" />} />
-      <ProtectedRoute path="/calendar" component={() => <ComingSoonPage title="Calendar" />} />
-      <ProtectedRoute path="/notifications" component={() => <ComingSoonPage title="Notifications" />} />
+      <ProtectedRoute path="/grades" component={GradesPage} />
+      <ProtectedRoute path="/transcript" component={TranscriptPage} />
+      <ProtectedRoute path="/calendar" component={CalendarPage} />
+      <ProtectedRoute path="/notifications" component={NotificationsPage} />
       
       {/* Faculty Routes */}
       <ProtectedRoute path="/my-courses" component={() => <ComingSoonPage title="My Courses" />} />
@@ -39,8 +45,8 @@ function Router() {
       <ProtectedRoute path="/reports" component={() => <ComingSoonPage title="Reports" />} />
       
       {/* General Routes */}
-      <ProtectedRoute path="/help" component={() => <ComingSoonPage title="Help Center" />} />
-      <ProtectedRoute path="/settings" component={() => <ComingSoonPage title="Settings" />} />
+      <ProtectedRoute path="/help" component={HelpCenterPage} />
+      <ProtectedRoute path="/settings" component={SettingsPage} />
       
       {/* Auth and Not Found Routes */}
       <Route path="/auth" component={AuthPage} />
